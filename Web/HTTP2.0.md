@@ -7,7 +7,7 @@
 ## 설명
 
 ### HTTP 1.0
-![HTTP1](./imgs/http1.png)
+![HTTP1](../imgs/http1.png)
 
   - 동시전송 불가 (순차적 진행)
   - Head of line blocking
@@ -21,7 +21,7 @@
   - 하나의 커넥션으로 여러개의 파일 다운로드
   - 리소스간의 우선순위를(css, img 등) 설정
   - PUSH_PROMISE
-   ![HTTP2 PUSH](./imgs/http2_push.png)
+   ![HTTP2 PUSH](../imgs/http2_push.png)
       - Client 가 HTML 문서를 수신/해석한 후 Resource 요청
       - Server 가 Client가 요청하지 않았지만 HTML 문서에 포함된 리소스들을 Push 하여 클라이언트 요청을 줄임
       - 캐싱되어 재사용되는 리소스에 대한 PUSH의 경우 낭비
