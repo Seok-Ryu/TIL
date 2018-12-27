@@ -1,7 +1,7 @@
 # ES6 문법
 잘 모르던 또는 헷갈리던 ES6문법들에 대한 정리
 
-##for-of
+## for-of
 기존 `for-in`이 상위 prototype 요소도 포함 된다는 문제를 해결
 
 ```javascript
