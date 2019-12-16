@@ -57,10 +57,28 @@ T2가 읽은 데이타는 B가 될 것이다.
 ## 격리 수준 
 
 ### Read uncommitted
-### Read committed
-### Repeatable reads
-### Serializable
+- 각 트랜잭션에서의 변경 내용이 COMMIT이나 ROLLBACK 여부에 상관 없이 다른 트랜잭션에서 값을 읽을 수 있다.
+- 정합성에 문제가 많은 격리 수준이기 때문에 사용하지 않는 것을 권장한다.
+- Commit이 되지 않는 상태지만 Update된 값을 다른 트랜잭션에서 읽을 수 있다.
+- DIRTY READ 발생
 
+### Read committed
+- RDB에서 대부분 기본적으로 사용되고 있는 격리 수준이다.
+- Dirty Read와 같은 현상은 발생하지 않는다.
+- 실제 테이블 값을 가져오는 것이 아니라 Undo 영역에 백업된 레코드에서 값을 가져온다.
+- 하나의 트랜잭션내에서 똑같은 SELECT 쿼리를 실행했을 때는 항상 같은 결과를 가져와야 하는 REPEATABLE READ의 정합성에 어긋난다.
+
+### Repeatable reads
+- MySQL에서는 트랜잭션마다 트랜잭션 ID를 부여하여 트랜잭션 ID보다 작은 트랜잭션 번호에서 변경한 것만 읽게 된다.
+- Undo 공간에 백업해두고 실제 레코드 값을 변경한다.
+  - 백업된 데이터는 불필요하다고 판단하는 시점에 주기적으로 삭제한다.
+  - Undo에 백업된 레코드가 많아지면 MySQL 서버의 처리 성능이 떨어질 수 있다.
+- 이러한 변경방식은 MVCC(Multi Version Concurrency Control)라고 부른다.
+- PHANTOM READ 발생
+### Serializable
+- 가장 단순한 격리 수준이지만 가장 엄격한 격리 수준
+- 성능 측면에서는 동시 처리성능이 가장 낮다.
+- SERIALIZABLE에서는 PHANTOM READ가 발생하지 않는다.하지만.. 데이터베이스에서 거의 사용되지 않는다.
 
 ------------
 | Isolation Level	| Dirty Read	| Non repeatable Read | Phantom Read |
